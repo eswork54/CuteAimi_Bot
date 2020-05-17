@@ -27,7 +27,7 @@ async def eat(ctx):
     random.shuffle(all_data)#打亂數據
     you_eat = random.choice(all_data)
     user_id = ctx.author.id
-    await ctx.send(f'<@{user_id}> go to eat{you_eat}') 
+    await ctx.send(f'<@{user_id}> go to eat {you_eat}') 
 
 
 bot.run(jdata['TOKEN'])
