@@ -3,7 +3,7 @@
 
     What should I eat for dinner tonight?
 
-    Let this robot tell you!
+    Let this bot tell you!
 ## Commands Showcase
 ### /eat
     return random food
