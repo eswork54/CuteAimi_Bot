@@ -29,5 +29,16 @@ async def eat(ctx):
     user_id = ctx.author.id
     await ctx.send(f'<@{user_id}> go to eat {you_eat}') 
 
+@bot.command()
+async def 圖片(ctx):
+    random_pic = random.choice(jdata['pic'])
+    pic = discord.File(random_pic)
+    await ctx.send(file = pic)
+
+@bot.command()
+async def 網路圖片(ctx):
+    random_pic = random.choice(jdata['web_pic'])
+    await ctx.send(random_pic)
+
 
 bot.run(jdata['TOKEN'])
