@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import json
 import random
+import os
 
 with open('setting.json','r', encoding='utf8') as jfile:
     jdata = json.load(jfile)
@@ -16,29 +17,23 @@ async def on_ready():
     print(">> Bot is online <<")
 
 @bot.command()
-async def eat(ctx):
-    food_dict = edata
-    all_data = []
-    for v,w in list(food_dict.items()):
-        temp = []
-        for i in range(w):
-            temp.append(v)
-        all_data.extend(temp)
-    random.shuffle(all_data)#打亂數據
-    you_eat = random.choice(all_data)
-    user_id = ctx.author.id
-    await ctx.send(f'<@{user_id}> go to eat {you_eat}') 
+async def load(ctx,extension):
+    bot.load_extension(f'cmds.{extension}')
+    await ctx.send(f'Loaded {extension} done.')
 
 @bot.command()
-async def 圖片(ctx):
-    random_pic = random.choice(jdata['pic'])
-    pic = discord.File(random_pic)
-    await ctx.send(file = pic)
+async def reload(ctx,extension):
+    bot.reload_extension(f'cmds.{extension}')
+    await ctx.send(f'Re-Loaded {extension} done.')
 
 @bot.command()
-async def 網路圖片(ctx):
-    random_pic = random.choice(jdata['web_pic'])
-    await ctx.send(random_pic)
+async def unload(ctx,extension):
+    bot.unload_extension(f'cmds.{extension}')
+    await ctx.send(f'Un-Loaded {extension} done.')
 
+for filename in os.listdir('./cmds'):
+    if filename.endswith('.py'):
+        bot.load_extension(f'cmds.{filename[:-3]}')
 
-bot.run(jdata['TOKEN'])
+if __name__ == "__main__":
+    bot.run(jdata['TOKEN'])
